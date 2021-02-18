@@ -1,11 +1,19 @@
 import PropTypes from 'prop-types';
-import { ButtonDelete, Li } from '../phoneBook.css';
+
+import { ButtonDelete, Li, Name, Number, NameAndBtn } from './ContactItem.css';
 
 const ContactItem = ({ id, name, number, onDeleteContact }) => {
 	return (
 		<Li>
-			{name}: {number}
-			<ButtonDelete type="button" onClick={() => onDeleteContact(id)}>Delete</ButtonDelete>
+			<Name>{name}:</Name>
+			<NameAndBtn>
+				<Number>{number}</Number> 
+				<ButtonDelete
+					type="button"
+					onClick={() => onDeleteContact(id)}>
+					&#x2716;
+				</ButtonDelete>
+			</NameAndBtn>
 		</Li>		
 	)
 }

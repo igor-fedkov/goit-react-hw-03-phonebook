@@ -1,5 +1,9 @@
 import PropTypes from 'prop-types';
-import ContactItem from '../contactItem';
+import { CSSTransition, TransitionGroup } from "react-transition-group"; 
+
+import { List } from './ContactsList.css';
+
+import ContactItem from '../ContactItem';
 
 const ContactsList = ({ contacts, filter, onDeleteContact }) => {
 	const filteredContacts = contacts.filter(contact =>
@@ -7,20 +11,29 @@ const ContactsList = ({ contacts, filter, onDeleteContact }) => {
 	
 	const listItems = filteredContacts.map(({ name, number, id }) => {
 		return (
-			<ContactItem
-				id={id}
-				name={name}
-				number={number}
+			<CSSTransition
 				key={id}
-				onDeleteContact={onDeleteContact}
-			/>
+				timeout={250}
+				classNames="fade"
+				unmountOnExit
+			>
+				<ContactItem
+					id={id}
+					name={name}
+					number={number}					
+					onDeleteContact={onDeleteContact}
+				/>
+			</CSSTransition>
 		)
 	})
 
 	return (
-		<ul>
-			{listItems}
-		</ul>
+		
+		<List>
+			<TransitionGroup>
+				{listItems}
+			</TransitionGroup>
+		</List>
 	)
 }
 

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { Form, Label, Input } from '../phoneBook.css';
+import { Form, Label, Input, Button } from './ContactForm.css';
 
 const ContactForm = ({ name, number, onInputChange, onSubmit }) => {
 	return (
@@ -14,7 +14,7 @@ const ContactForm = ({ name, number, onInputChange, onSubmit }) => {
 				<Input type="tel" name="number" value={number} onChange={onInputChange}/>
 			</Label>
 
-			<button type="submit">Add contact</button>
+			<Button type="submit">Add contact</Button>
 		</Form>
 	)
 }

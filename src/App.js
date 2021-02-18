@@ -3,7 +3,7 @@ import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { v4 as uuidv4 } from 'uuid';
 
-import PhoneBook from './components/phoneBook'
+import PhoneBook from './components/PhoneBook'
 import { loadKey, saveKey } from './utils/local-storage';
 
 class App extends Component {
@@ -18,7 +18,8 @@ class App extends Component {
 
   state = {
     contacts: [],
-    filter: ''
+    filter: '',
+		showNotification: false
   }
 
   componentDidMount() { 
@@ -44,7 +45,8 @@ class App extends Component {
   addContact = ({ name, number }) => {
     const usedContactName = this.state.contacts.find(contact => contact.name === name);
     if (usedContactName !== undefined) {
-      alert(`${name} is already in contacts.`);
+      this.setState({ showNotification: true });
+      setTimeout(() => this.setState({ showNotification: false }), 3000);
       return;
     }
 
@@ -56,7 +58,7 @@ class App extends Component {
     
     this.setState(state => {
       return {
-        contacts: [...state.contacts, contact]
+        contacts: [contact, ...state.contacts]
       }
     })
   };
@@ -70,7 +72,7 @@ class App extends Component {
   
 
   render() {
-    const { contacts, name, number, filter } = this.state;
+    const { contacts, name, number, filter, showNotification } = this.state;
 
     return (
       <div className="App">
@@ -82,6 +84,7 @@ class App extends Component {
           contacts={contacts}
           filter={filter}
           onDeleteContact={this.deleteContact}
+          showNotification={showNotification}
         />
       </div>
     );
